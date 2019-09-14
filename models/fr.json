@@ -1,0 +1,78 @@
+{
+	"invocation": "",
+	"intents": [
+		{
+			"name": "ExitIntent",
+			"phrases": [
+				"à la prochaine",
+				"arrête",
+				"au revoir"
+			],
+			"dialogflow": {
+				"webhookUsed": true
+			}
+		},
+		{
+			"name": "RepeatIntent",
+			"phrases": [
+				"Répétez la réplique"
+			],
+			"dialogflow": {
+				"webhookUsed": true
+			}
+		}
+	],
+	"dialogflow": {
+		"intents": [
+			{
+				"webhookUsed": true,
+				"fallbackIntent": true,
+				"responses": [
+					{
+						"messages": [
+							{
+								"type": 0,
+								"lang": "fr",
+								"condition": "",
+								"speech": [
+									"J'ai du mal à comprendre cette question.",
+									"J'ai mal compris votre demande.",
+									"Je n'ai pas saisi ce que vous avez dit.",
+									"Je crois que je ne vous suis pas.",
+									"Je ne comprends pas de quoi vous me parlez."
+								]
+							}
+						]
+					}
+				],
+				"name": "Default Fallback Intent"
+			},
+			{
+				"webhookUsed": true,
+				"events": [
+					{
+						"name": "WELCOME"
+					}
+				],
+				"responses": [
+					{
+						"messages": [
+							{
+								"type": 0,
+								"lang": "fr",
+								"condition": "",
+								"speech": [
+									"Salut !",
+									"Bonjour !",
+									"Salutations !",
+									"Bienvenue !"
+								]
+							}
+						]
+					}
+				],
+				"name": "Default Welcome Intent"
+			}
+		]
+	}
+}
