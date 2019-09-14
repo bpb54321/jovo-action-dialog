@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "welcome": "Bienvenu à Dialogues en français!",
+    "please-say-the-first-line": "S'il vous plaît, prononcez la première réplique!",
+    "that-line-was-not-correct": "Désolé, mais cette réplique n'était pas correcte.",
+    "the-correct-line-was": "La bonne réplique était:",
+    "please-repeat-the-line": "Répétez la réplique, s'il vous plaît.",
+    "ok-ill-repeat": "D'accord, allez-y.",
+    "there-are-no-more-lines": "Il n'y a plus de répliques.",
+    "goodbye": "Au revoir!"
+  }
+}
