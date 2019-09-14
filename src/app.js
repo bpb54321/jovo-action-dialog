@@ -27,8 +27,8 @@ app.use(
 // ------------------------------------------------------------------
 
 function getNextLineAndAskItOrEndSession() {
-  if (this.$session.$data.lineIndex in this.$cms.lines) {
-    const line = this.$cms.lines[this.$session.$data.lineIndex].line;
+  if (this.$session.$data.lineIndex in this.$session.$data.lines) {
+    const line = this.$session.$data.lines[this.$session.$data.lineIndex].line;
     this.ask(line, line);
   } else {
     const speech = `Il n'y a plus de répliques, au revoir!`;
@@ -39,15 +39,41 @@ function getNextLineAndAskItOrEndSession() {
 app.setHandler({
   LAUNCH() {
     this.$session.$data.lineIndex = 0;
-    getNextLineAndAskItOrEndSession.call(this);
+    if (this.$cms.lines) {
+      this.$session.$data.lines = this.$cms.lines;
+    } else {
+      this.$session.$data.lines = [];
+    }
+    this.$session.$data.repeatCount = 0;
+
+    this.$speech.addT(`welcome`)
+      .addT(`please-say-the-first-line`);
+
+    this.ask(this.$speech);
   },
   Unhandled() {
-    this.$session.$data.lineIndex++;
-    getNextLineAndAskItOrEndSession.call(this);
+
+    if (this.$session.$data.lineIndex in this.$session.$data.lines) {
+      const currentLineText = this.$session.$data.lines[this.$session.$data.lineIndex].line;
+      this.$speech.addText(currentLineText);
+      this.$session.$data.lineIndex++;
+      this.ask(this.$speech);
+    } else {
+      this.$speech.addT(`there-are-no-more-lines`)
+        .addT(`goodbye`);
+      this.tell(this.$speech);
+    }
+
   },
   ExitIntent() {
-    const speech = "Au revoir!";
-    this.tell(speech);
+    this.$speech.addT(`goodbye`);
+    this.tell(this.$speech);
+  },
+  RepeatIntent() {
+    this.$speech.addT(`ok-ill-repeat`);
+    this.$session.$data.lineIndex--;
+
+    this.ask(this.$speech);
   },
 });
 
